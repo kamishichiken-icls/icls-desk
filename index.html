@@ -1,0 +1,284 @@
+<title>上七軒ICLS インストラクター共有デスク</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky search bar on top, quick-keyword chips, then a single column of result cards (phone-first, used on the floor during the course) */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --ink:#18212d; --muted:#5b6676; --line:#d9dfe7;
+  --accent:#1d4f9a; --accent-soft:#e3ecf8; --mark:#ffe58a;
+  --ok:#1f7a4d; --ok-soft:#e1f2e8; --warn:#9a5b00; --warn-soft:#fdf0d6; --draft:#6a4aa0; --draft-soft:#eee7f8;
+  --font-display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --font-body:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151c; --surface:#18202b; --ink:#e6ebf2; --muted:#9aa6b6; --line:#2a3544;
+  --accent:#7fb0f5; --accent-soft:#1d2d45; --mark:#6b5a12;
+  --ok:#6fd3a0; --ok-soft:#173326; --warn:#f0bf6a; --warn-soft:#3a2c12; --draft:#c3a8f0; --draft-soft:#2c2340; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c; --surface:#18202b; --ink:#e6ebf2; --muted:#9aa6b6; --line:#2a3544;
+  --accent:#7fb0f5; --accent-soft:#1d2d45; --mark:#6b5a12;
+  --ok:#6fd3a0; --ok-soft:#173326; --warn:#f0bf6a; --warn-soft:#3a2c12; --draft:#c3a8f0; --draft-soft:#2c2340; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.75}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{padding-block:12px 10px;display:grid;gap:8px}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.brand h1{font-family:var(--font-display);font-size:17px;font-weight:700;margin:0;letter-spacing:.02em;text-wrap:balance}
+.brand small{color:var(--muted);font-size:12px}
+.search{display:flex;gap:6px}
+.search input{flex:1;min-width:0;font:inherit;font-size:17px;padding:10px 12px;border:2px solid var(--accent);border-radius:10px;background:var(--bg);color:var(--ink)}
+.search input:focus{outline:3px solid var(--accent-soft);outline-offset:1px}
+.search button{font:inherit;font-size:14px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted);cursor:pointer}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:inherit;font-size:13px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;white-space:nowrap}
+.chip:hover,.chip:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.cats .chip{font-size:12px}
+main.wrap{padding-block:14px 48px;display:grid;gap:12px}
+.notice{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.notice b{color:var(--ink)}
+.count{font-size:13px;color:var(--muted)}
+.count b{font-family:var(--font-mono);color:var(--ink)}
+.group-h{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:10px 0 -4px}
+details.card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details.card>summary{list-style:none;cursor:pointer;padding:12px 14px;display:grid;gap:4px}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary:focus-visible{outline:3px solid var(--accent-soft);border-radius:12px}
+.meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px}
+.cat{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.pill{padding:1px 8px;border-radius:999px;font-weight:700}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.draft{background:var(--draft-soft);color:var(--draft)}
+.src{color:var(--muted)}
+.title{font-family:var(--font-display);font-weight:700;font-size:16px;line-height:1.5;text-wrap:balance}
+.body{padding:0 14px 14px;min-width:0;border-top:1px solid var(--line)}
+.body p,.body ul,.body ol{margin:10px 0 0}
+.body ul,.body ol{padding-left:1.3em}
+.body li+li{margin-top:2px}
+.body b{color:var(--ink)}
+.qa{background:var(--accent-soft);border-radius:8px;padding:8px 10px;margin-top:10px}
+.qa .q{font-weight:700}
+.tbl{overflow-x:auto;margin-top:10px}
+.tbl table{border-collapse:collapse;font-size:13.5px;min-width:100%}
+.tbl th,.tbl td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg);font-weight:700;white-space:nowrap}
+.tbl td.n{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+pre{font-family:var(--font-mono);font-size:12px;line-height:1.5;background:var(--bg);border-radius:8px;padding:10px;overflow-x:auto;margin:10px 0 0}
+mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
+.empty{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14px}
+.related{font-size:12.5px;color:var(--muted);margin-top:4px}
+footer{color:var(--muted);font-size:12px;padding-block:8px 24px}
+@media (prefers-reduced-motion:no-preference){details.card[open]>.body{animation:in .15s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><h1>上七軒ICLS インストラクター共有デスク</h1><small>第9回 2026/11/15（日）西陣病院</small></div>
+    <div class="search">
+      <input id="q" type="search" placeholder="キーワード（例：中断、ブラ、アドレナリン）" autocomplete="off" enterkeyhint="search" aria-label="キーワード検索">
+      <button id="clear" type="button">消す</button>
+    </div>
+    <div class="chips" id="quick" aria-label="よく調べる言葉"></div>
+    <div class="chips cats" id="cats" aria-label="分類で絞る"></div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="notice"><b>試作版です。</b>コンセンサスはALS章（起案中）だけを載せています。印の意味：<span class="pill ok">決定</span> 決まったこと／<span class="pill warn">仮</span> コアメンバーの意見待ち／<span class="pill draft">起案中</span> コンセンサス作成中。本コースは JRC蘇生ガイドライン2020 とガイドブック第5版に準拠します。</div>
+  <div class="count" id="count"></div>
+  <div id="list" style="display:grid;gap:10px"></div>
+  <footer>出典の表記：〔GB p.○〕＝改訂第5版 日本救急医学会ICLSコースガイドブック、〔2025 p.○〕＝JRC蘇生ガイドライン2025。GL2025 の内容を受講生に答えるときは「本コースはGL2020に沿っています。GL2025では〜」と版を明示してください。</footer>
+</main>
+
+<script>
+const ST={ok:["ok","決定"],warn:["warn","仮（意見待ち）"],draft:["draft","起案中"]};
+const CATS=["ALS章","GL2025の扱い","決定事項","当日運営"];
+const T=(head,rows)=>`<div class="tbl"><table><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+const QA=(q,a)=>`<div class="qa"><div class="q">Q. ${q}</div><div>A. ${a}</div></div>`;
+
+const DATA=[
+/* ---------- ALS章（起案v1） ---------- */
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSブースの位置づけ",k:"スキルブース 型 2分サイクル",b:`<p>ALSブースは、午前の3つのスキル（BLS・電気ショック・気道管理）を、チーム蘇生の流れの中でつなげる<b>スキルブース</b>です。到達点は「アルゴリズムに沿って、声を出し合い、2分サイクルを回せること」。原因の深い検索やROSC（自己心拍再開）後の管理の詳細は、午後のシナリオで扱います。</p><p>インストラクター全員が同じ型を同じ言葉で教えられるよう、進行の手順・場面設定・指導の言葉をこの章に書いています。進行役はこの章のとおりに進めれば足ります。</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSブースの資器材",k:"物品 準備 シミュレーター 除細動器 救急カート ストップウォッチ",b:`<ul><li>セーブマンプロ1台またはレサシアンシミュレーター1台、マニュアル除細動器1台（日本光電）、BVM（リザーバー・バクテリアフィルター付き）</li><li>救急カート一式（模擬点滴・静脈留置針・生理食塩水、模擬薬剤＝アドレナリン・アミオダロン、挿管道具、呼気CO2モニター）、背板</li><li>ホワイトボード（記録用の枠を事前に書いておく）、記録用紙・バインダー・ボールペン</li><li>ストップウォッチ（記録係用）</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSブースの到達目標",k:"目標",b:`<ol><li>ALS（二次救命処置）のアルゴリズムを理解し、2分サイクルで評価と処置を繰り返せる。</li><li>リーダーの役割を理解し、指示と復唱（クローズドループ・コミュニケーション）でチーム蘇生を行える。</li><li>電気ショックの適応がある場合とない場合で、それぞれ次にとる行動（電気ショック／薬剤投与と原因検索）がわかる。</li><li>記録の重要性を理解し、時刻と処置を記録できる。</li></ol>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"止めて確認してよい場面と、BLSの重複指導",k:"急かさない 止める 介入 BLS 3回目 開始点 補う",b:`<ul><li><b>受講生を急かさず、必要なら止めて確認・説明してかまいません。</b>ただし1回あたりの時間は守ります。止めるのは「アルゴリズムから外れたとき」と「危険な行為があったとき」に絞ります。</li><li><b>BLSで指導した内容は重複して指導しなくてかまいません。</b>発見から胸骨圧迫までの流れができていれば、3回目以降は「コードブルー要請済みで、発見者が胸骨圧迫をしているところ」から始めてよい。</li><li>午前のスキルで不十分と思える部分があれば、ALSブースの中で補ってください。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"電気ショックはマニュアルモードで行う",k:"AEDモード マニュアル 150J",b:`<p><b>ALSブースの電気ショックはマニュアルモードで行います。</b>AEDモードで対応しようとした受講生がいたら止めて、マニュアルモードとの違いを確認してください。</p><p>背景：第8回でAEDモードで対応した受講生がいた。過去に院内でAEDモード150Jでのショック事例あり。</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"インストラクターの配置（各ブース5役）",k:"進行役 メイン サブ 手技確認 記録指導 オペレーター 役割分担",b:T(["役","人数","担当すること"],[["進行役（メイン）","1","導入・場面提示・全体の時間管理。リーダー役の受講生への指導（指示の出し方、俯瞰、要約）"],["進行役（サブ）","1","メインの補佐。振り返りでシミュレーターの解析結果（胸骨圧迫の質・中断時間）を示す。メインが止めにくい場面で声をかける"],["手技確認","1","胸骨圧迫・BVM・電気ショックの安全確認・静脈路確保と薬剤投与の手技"],["記録指導","1","記録係の受講生のサポート。2分の計時と、次のアドレナリンの時刻の予告を一緒に行う"],["オペレーター","1","シミュレーターの波形・脈拍の操作。場面設定どおりに波形を出す"]])+`<p>第8回の振り返り「ALS進行は1人では負担が大きい」を受け、進行役を2名にしました。</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSの時間配分（70分）",k:"時間 タイムテーブル 導入 まとめ 押した",b:T(["時間","内容"],[["0:00–0:10","導入：到達目標、アルゴリズムの確認、役割の説明、記録の枠、場面設定の提示"],["0:10–1:04","実習6回（1回9分：場面提示1分・実施5〜6分・振り返り2分）。1回目と2回目の間に背板の説明"],["1:04–1:10","まとめ：アルゴリズムの再確認、シナリオへのつなぎ（「午後はここに原因検索とROSC後の対応が加わります」）"]])+`<p>時間が押した場合は、1回の実施を2分サイクル1回分に短縮し、<b>振り返りは削らない</b>。</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"導入で押さえるアルゴリズムの5点",k:"心停止アルゴリズム 波形 宣言 リズムチェック 2分",b:`<ol><li>心電図モニター（パッド）を装着したら、波形を確認して<b>宣言する</b>（「VFです」「PEAです」）〔GB p.26〕。</li><li>VF／無脈性VTなら電気ショック。電気ショック後は<b>波形や脈拍を確認せず、ただちに胸骨圧迫から再開</b>〔GB p.26〕。</li><li>電気ショックの適応がなければ、ただちに胸骨圧迫から再開する。</li><li>以後、<b>2分ごとにリズムチェック</b>（波形と脈拍の確認）〔GB p.26〕。</li><li>どの波形でも、CPRを続けながら静脈路確保、薬剤投与、原因検索を進める〔GB p.26〕。</li></ol><p>図は〔GB p.25 図2〕心停止アルゴリズム、〔GB p.114〕心停止時の処置フロー。</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"受講生の6つの役割とローテーション",k:"リーダー 胸骨圧迫 気道 記録 除細動器 補助 ローテーション 全員リーダー",b:`<p>受講生6人が6つの役割を順番に担当し、<b>全員が1回ずつリーダーを経験します</b>〔GB pp.38-39〕。</p>`+T(["役割","主な仕事"],[["①リーダー（第一発見者）","統括、波形の評価・判断、指示。人数がそろったら手を出さず全体を俯瞰〔GB p.38〕"],["②胸骨圧迫","⑥補助と1〜2分ごとに交代〔GB p.39〕"],["③気道管理","BVM換気（30：2）。挿管後は非同期で1分間に約10回"],["④記録","時刻と処置の記録、2分の計時（タイムキーパー兼任）"],["⑤除細動器","パッド装着、充電、安全確認、電気ショック"],["⑥補助","背板の挿入、胸骨圧迫の交代、静脈路確保、薬剤の準備・投与"]])+T(["回","①","②","③","④","⑤","⑥"],[["1","A","B","C","D","E","F"],["2","B","C","D","E","F","A"],["3","C","D","E","F","A","B"],["4","D","E","F","A","B","C"],["5","E","F","A","B","C","D"],["6","F","A","B","C","D","E"]])},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"声の出し方（チームで統一する言葉）",k:"声 指示 復唱 クローズドループ 完了報告 SBAR 要約 相互支援 コミュニケーション",b:`<p>言い回しが多少違っても、<b>「誰に」「何を」が伝わり、受けた人が復唱し、終わったら報告する</b>ことができていれば合格です〔GB p.38〕。</p>`+T(["場面","リーダー","受けた人"],[["指示","「○○さん、静脈路確保をお願いします」","「静脈路確保します」（復唱）"],["完了","—","「静脈路確保できました」「アドレナリン1mg投与しました」〔GB p.39〕"],["波形","「胸骨圧迫止めてください。波形と脈を確認します」→「VFです」","—"],["電気ショック","「電気ショックします。圧迫再開してください。充電お願いします」","「充電します」→「充電完了。離れてください」→全員離れたことを確認→「ショックします」"],["応援到着","SBARで簡潔に共有（例：「VFで発見、電気ショック1回、アドレナリンはまだです」）〔GB pp.39-40〕","—"],["要約","「VFで発見され、電気ショックを3回実施しました。アドレナリン2回目を投与しましたが、他にできることはありますか」〔GB p.40〕","「次はアミオダロンではないでしょうか」（相互支援）"]])},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"2分サイクルとリズムチェック",k:"2分 計時 まもなく2分 波形確認 脈拍確認 交代",b:`<ul><li><b>2分サイクル</b>：記録係が2分を計り、「まもなく2分です」とリーダーに伝える。リーダーは交代要員と除細動器担当に準備を指示してから胸骨圧迫を止める。</li><li><b>リズムチェック</b>：波形の確認と脈拍の確認は、Monitorブースと同じく全例で行うのが基本。確認に時間をかけすぎず、脈拍の有無が不明なら速やかにCPRを再開する。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"電気ショックの手順（ALSブース）",k:"充電 安全確認 エネルギー 150J 2J 放電 再開 洞調律",b:`<ul><li>Monitorブースと同じ手順。胸骨圧迫は波形確認後に再開し、<b>充電を開始するまで行い、充電中は行わない</b>（安全を重視）。</li><li>エネルギー量は2相性ではメーカー推奨値（150Jのことが多い）と指導し、コースでは安全のため2Jで行う。</li><li><b>放電後ただちに胸骨圧迫を再開</b>。放電直後に波形が洞調律に見えても、波形や脈拍の確認はしない（第8回の振り返り）。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"胸骨圧迫の中断は「とにかくできるだけ短く」",k:"中断 10秒 十秒 hands-off GL2025",b:`<p>指導では「10秒以内」とは言わず、<b>「中断はとにかくできるだけ短く」</b>で統一します（リズムチェックで脈拍を確認するときも同じ）。GL2025では、中断をできる限り短くすることを強調するため「10秒」という目安が削除されました〔2025 p.36〕。</p><p>関連：GL2025の扱い①、統一回答「中断は10秒以内と習ったけど？」</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"薬剤投与：VF／無脈性VTの場合",k:"アドレナリン エピネフリン ボスミン アミオダロン アンカロン 1mg 300mg 150mg 静脈路 3〜5分",b:`<p>インストラクターによって教えるタイミングが違わないよう、ガイドブックの実施例〔GB pp.112-114〕にそろえます。</p>`+T(["波形診断","行動"],[["1回目：VF","電気ショック→ただちにCPR再開。末梢静脈路確保を指示（18または20Gの留置針、生理食塩水などの細胞外液）"],["2回目：VF","電気ショックを優先→ただちにCPR再開→<b>アドレナリン1mgを静注</b>し、20mLの後押しまたは輸液全開。アミオダロンの準備"],["3回目：VF","電気ショック→ただちにCPR再開→<b>アミオダロン300mgを静注</b>（5%ブドウ糖液20mLで溶解）。アドレナリンの準備"],["以後","アドレナリンは3〜5分ごと（2サイクルごとがちょうどよい〔GB p.109〕）。アミオダロンが効果不十分なら150mgを追加してよい〔GB p.110〕"]])+`<p>〔GB p.112, p.114 図A〕</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"薬剤投与：PEA／心静止の場合と指導のポイント",k:"アドレナリン エピネフリン ボスミン PEA 心静止 アシストール すみやかに 抗不整脈薬 併用 単剤",b:`<ul><li>末梢静脈路確保を指示し、<b>できるだけすみやかにアドレナリン1mgを静注</b>。以後3〜5分ごと〔GB p.113, p.114 図B〕。</li><li>PEAでは原因の検索と是正が特に重要〔GB p.113〕。</li></ul><p><b>指導のポイント</b></p><ul><li>アドレナリンは電気ショックの妨げにならないタイミングで投与する〔GB p.110〕。</li><li>記録係は投与時刻を記録し、<b>次のアドレナリンの目安時刻をホワイトボードに書いておく</b>。リーダーは記録係の予告を受けて指示する。</li><li>抗不整脈薬は併用せず、使う場合はいずれか単剤〔GB p.110〕。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"背板の入れ方",k:"背板 バックボード CPRボード エアマット CPRモード",b:`<ul><li>背板はBLSブースで事前に設置したものを使い、使い方はALSブースで指導する。</li><li>リズムチェック時や役割交代のタイミングに入れるなど、<b>胸骨圧迫の中断を増やさない入れ方</b>を指導する。</li><li>1回目と2回目の間に、置き方とタイミングを説明する。</li><li>エアマットのCPRモードは各自の病棟で確認してもらうよう伝える（物品としては用意しない）。</li></ul><p>関連：GL2025の扱い②「背板は今まで通り使う」</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSブースでの気道管理（BVMと挿管）",k:"BVM バッグバルブマスク アンビュー 換気 30:2 過換気 気管挿管 非同期 10回 5回目",b:`<ul><li>基本はBVMによる換気（30：2、送気は約1秒、軽く胸が上がる程度）。過換気にしない。</li><li>気管挿管は5回目に入れる。<b>医師以外の受講生の場合はインストラクターが行う。</b>受講生は準備・介助と挿管後の確認を行う（胸骨圧迫の中断はできるだけ短く）。</li><li>挿管後は胸骨圧迫と換気を非同期にする（胸骨圧迫100〜120回/分、換気1分間に約10回）。リーダーが「非同期に切り替えます」と宣言する。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"記録とホワイトボードの枠",k:"記録 ホワイトボード タイムキーパー ライティングシート ウツタイン 立ち位置",b:`<ul><li>第一発見者（リーダー）から状況を聞き、以後の流れと合わせてホワイトボードに記録する。</li><li>コースでは振り返りのためホワイトボードに記録するが、<b>実際の急変時はライティングシートまたはメモ帳を使う</b>ことを説明する〔GB pp.30-32〕。</li><li>記録係はタイムキーパーを兼ね、リーダーとは違った視点で全体の統括を支える〔GB p.39〕。立ち位置（リーダーの声が聞こえる距離）や声の大きさを工夫するよう指導する。</li></ul><pre>発見（虚脱）時刻：　　　コードブルー要請：　　　CPR開始：
+除細動器装着：　　　　　静脈路確保：
+────────────────────────────
+時刻 ｜波形｜脈｜電気ショック（回目）｜薬剤（量）｜その他
+────────────────────────────
+次のアドレナリン目安：　　時　　分</pre>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"原因検索（4H4T）はリーダーが1回問いかけるところまで",k:"原因検索 4H4T 可逆的 4つのか からだ カルテ かぞく 簡便な検査",b:`<ul><li>心停止の可逆的な原因の検索と是正は、波形にかかわらず常に考える重要なステップ〔GB p.28〕。</li><li>ALSブースでは、<b>リーダーが少なくとも1回「原因として何が考えられますか」とチームに問いかけ、4H4T〔GB p.29 表1〕を声に出して共有する</b>ところまで。</li><li>情報収集の4つの「か」（からだ・カルテ・かぞく・簡便な検査）〔GB p.29 表2〕は紹介にとどめ、実践はシナリオで行う。</li></ul>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ROSCの判断（6回目）",k:"ROSC 心拍再開 自己心拍 脈拍 血圧 呼吸 12誘導",b:`<ul><li>リズムチェックでROSCの可能性がある波形が出たら脈拍を確認。触れればROSCと判断し、<b>呼吸の確認（胸と腹部の動き）、必要に応じて人工呼吸の継続（1分間に10回程度）、血圧と脈拍数の測定</b>を指示するところまで〔GB p.113, p.116〕。</li><li>12誘導心電図、原因の検索、集中治療の手配など、その先の管理〔GB pp.116-117〕は「シナリオで扱います」と伝えて終える。</li><li>習熟度で5回目の挿管を省く場合も、<b>6回目のROSCの判断は必ず行う</b>（午後のシナリオは全例ROSCまたは蘇生中止で終わるため）。</li></ul><p>関連：決定事項「ROSC後の扱い」</p>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"1回ごとの振り返り（2分）",k:"振り返り フィードバック デブリーフィング 修正点 解析結果",b:`<ol><li>リーダーに聞く：「うまくいったこと」と「次に変えたいこと」を1つずつ。</li><li>チームに聞く：リーダーの指示はわかりやすかったか。</li><li>インストラクターから：良かった点を具体的に1つ、修正点を1つ。<b>修正点は1回に1つまで</b>。</li><li>時間が許せば、サブ進行役がシミュレーターの解析結果（深さ・テンポ・中断時間）を示す。点数ではなく項目ごとに振り返る。</li></ol>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"ALSブースの場面設定（6回）",k:"場面設定 シナリオ 波形 オペレーター VF PEA ROSC 引き継ぎ 心カテ",b:`<p>共通の設定：心臓カテーテル検査目的で循環器内科病棟に入院中の患者（60歳代男性）。病棟で急変する。<b>最初に場面設定を受講生に提示してから始めてください。</b></p>`+T(["回","開始点","波形の進行","到達点","重点"],[["1","発見から","VF","1回目の電気ショック→CPR再開","発見→応援要請→BLS→除細動器装着→波形の宣言→安全な電気ショック"],["2","発見から","VF","1回目の電気ショック→CPR再開→静脈路確保の指示","背板の入れ方、指示と復唱"],["3","発見者が胸骨圧迫中（コードブルー要請済み）","VF→（2分後）VF","2回目の電気ショック→アドレナリン1mg","2分の計時、リズムチェック、アドレナリンのタイミング"],["4","3回目と同じ","VF→（2分後）VF","2回目の電気ショック→アドレナリン1mg","応援到着時のSBAR、記録"],["5","電気ショック2回・アドレナリン1回後の引き継ぎから","VF→ショック→（挿管）→洞調律・脈拍あり","3回目の電気ショック→アミオダロン300mg→挿管（インスト実施）・確認→非同期CPR→ROSC","挿管後の確認と非同期への切り替え、リーダーの要約"],["6","発見者が胸骨圧迫中","VF→ショック→PEA→洞調律・脈拍あり","PEAでアドレナリン→4H4Tの問いかけ→ROSCの判断と直後の指示","電気ショック不要時の行動、原因検索の声かけ、ROSCの判断"]])},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1",t:"デモ②（DC2回でROSC）の標準の流れ",k:"デモ デモンストレーション お手本 DC2回",b:`<p>デモ②は受講生にそのままお手本としてインプットされます。「声の出し方」「薬剤投与」と同じ動きで行い、<b>アルゴリズム以外の行動（例：静脈路確保時の採血）は入れません</b>。</p><ol><li>発見→反応・呼吸と脈の確認（10秒以内）→応援要請（コードブルー）→胸骨圧迫開始</li><li>応援到着→除細動器装着→「VFです」→1回目の電気ショック→ただちにCPR再開→静脈路確保の指示</li><li>2分→リズムチェック「VFです」→2回目の電気ショック→ただちにCPR再開→アドレナリン1mg投与・完了報告</li><li>2分→リズムチェック→洞調律、脈拍あり→「ROSCです」→呼吸の確認、血圧測定の指示</li></ol>`},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1 統一回答",t:"統一回答：充電中に胸骨圧迫をする？",k:"質問 Q&A 充電 胸骨圧迫",b:QA("充電中に胸骨圧迫をする？","本コースでは安全を優先し、充電中は胸骨圧迫をしません（Monitorの確認事項と同じ）。")},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1 統一回答",t:"統一回答：医師がいないときにマニュアルで電気ショックしてよい？",k:"質問 Q&A 医師の指示 口頭指示 看護師 マニュアル",b:QA("医師がいないときにマニュアル操作で電気ショックをしてもよい？","医師の指示が必要です。口頭指示に従って実施した状況であれば可です（第8回Q&A集）。")},
+{c:"ALS章",s:"warn",src:"ALS章 起案v1 統一回答",t:"統一回答：胸骨圧迫の中断は10秒以内と習ったけど？",k:"質問 Q&A 中断 10秒 十秒 GL2025",b:QA("胸骨圧迫の中断は10秒以内と習ったけど？","前は「10秒以内」とされていましたが、GL2025では、とにかく短くしたいので「10秒」という目安が省かれました〔2025 p.36〕。本コースでも「中断はとにかくできるだけ短く」で指導します。10秒までなら止めてよい、という意味ではありません。なお「呼吸と脈拍の確認」は、GL2025でも「しっかり確認するが10秒以内」のままです。")},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1 統一回答",t:"統一回答：何回ショックしてもVFが止まらないときは？",k:"質問 Q&A 難治性 VF 止まらない 電気ショック エネルギー",b:QA("何回ショックしてもVFが止まらないときは？","本コースはGL2020どおり、2分ごとのリズムチェックと電気ショック、アドレナリン、抗不整脈薬で対応します。2回目以降はエネルギー量を上げることもあります〔GB p.115〕。")},
+{c:"ALS章",s:"warn",src:"ALS章 起案v1 統一回答",t:"統一回答：CPR中にエコーを当ててよい？",k:"質問 Q&A エコー POCUS 超音波 原因検索",b:QA("CPR中にエコーを当ててよい？","胸骨圧迫の中断を最小にする原則は変わりません。GL2025では、原因診断のためにルーチンには行わず、経験豊富なスタッフがCPRを中断せずに行える場合に限り、追加の手段として検討してよいとされました。")},
+{c:"ALS章",s:"draft",src:"ALS章 起案v1 補足",t:"体外循環式心肺蘇生（ECPR）とは",k:"ECPR ECMO PCPS 体外循環",b:`<ul><li>ECPR：通常の治療で反応のない心停止例に、膜型人工肺（ECMO）を用いながら蘇生処置を行うこと。適応疾患は難治性心室性不整脈、心原性ショック、肺塞栓症、薬物中毒など。ECMOに習熟した医師・看護師・臨床工学技士のチーム医療が不可欠〔GB p.115〕。</li><li>PCPS：経皮的心肺補助法。日本ではVA ECMOとほぼ同義で使われる。</li></ul><p>西陣病院の体制は確認中です。</p>`},
+
+/* ---------- GL2025の扱い（10/19 コアメンバーへの案） ---------- */
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案①",t:"① 胸骨圧迫の中断時間：「とにかくできるだけ短く」で統一",k:"中断 10秒 十秒 hands-off 呼吸 脈拍確認",b:`<ul><li>GL2025では「10秒以内」が無くなり「できる限り短く」になった。中断時間をできる限り短くすることを強調するため。導入講義でその旨を伝える。</li><li>インストラクションは<b>「中断はとにかくできるだけ短く」</b>で統一。質問があれば「前は10秒以内となっていたけど、とにかく短くしたいので今は省かれています」と答える。</li><li><b>呼吸と脈拍の確認はGL2025でも「10秒以内」のまま。</b>講義でも各ブースでも「しっかりと確認するが、10秒以内」で統一する。</li></ul>`},
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案②",t:"② 背板は今まで通り使う",k:"背板 バックボード CPRボード",b:`<p>今まで通り背板を使用する方針とします。</p>`},
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案③",t:"③ パッドの位置はGL2025の文言で説明する",k:"パッド 電極 貼る位置 AED 右鎖骨下 左腋窩 中腋窩線",b:`<p>「一方は患者の右鎖骨下，胸骨上部のすぐ右側に装着し，もう一方は左腋窩の尾側，中腋窩線上に装着する。」〔2025 p.50〕</p>`},
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案④",t:"④ 女性の場合：乳房を避ける、ブラジャーはずらせばよい",k:"ブラジャー ブラ 乳房 女性 パッド 下着",b:`<ul><li>「パッドはできるだけ乳房を避けて装着する」</li><li>「ブラジャーをずらして正しい位置の素肌に貼れれば、ブラジャーは完全に外さなくてもよい」</li></ul><p>この文言でBLSで指導する。ブラジャーを着けたマネキンをBLSや午後のシナリオで使うかは、コアメンバーで相談中。</p><p>関連：決定事項「貼付剤とブラジャー」</p>`},
+{c:"GL2025の扱い",s:"ok",src:"GL2025盛り込み案⑤",t:"⑤ DSED（二重連続電気ショック）・VC（ベクトルチェンジ）は紹介しない",k:"DSED VC ベクトルチェンジ 二重連続 難治性VF",b:`<p>武部先生によると実際にはほとんど行われていない（機器と人数にゆとりがないとできない）。<b>紹介もせず、統一回答も作りません。</b>質問されたら「本コースはGL2020どおりの対応です」と答えてください。</p>`},
+{c:"GL2025の扱い",s:"ok",src:"GL2025盛り込み案⑥",t:"⑥ ROSC後の体温管理・鎮静・鎮痛は触れない",k:"体温管理 TTM 低体温 鎮静 鎮痛 ROSC後",b:`<p>これまでも触れていないので、今回も触れません（講義でも扱わず、統一回答も用意しない）。ROSC後の話は、バイタル測定、12誘導、呼吸状態の評価、結果的にカテ室に行く・挿管する、が中心です。</p>`},
+{c:"GL2025の扱い",s:"ok",src:"GL2025盛り込み案⑦",t:"⑦ カルシウム・メイロン・徐脈・頻拍は扱わない",k:"カルシウム メイロン 重炭酸 炭酸水素ナトリウム 徐脈 頻拍 医師向け",b:`<p>医師向けの内容なので不要とします（統一回答も作らない）。</p>`},
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案⑧",t:"⑧ CPR中のエコー（POCUS）はPEAの原因検索で軽く触れる",k:"エコー POCUS 超音波 PEA 原因検索",b:`<p>PEAのシナリオのブリーフィングなどで原因検索の方法をおさらいするとき、検査の一つとして簡易的なエコーに触れてよい。「熟練者でCPRの中断なくできるのであれば」という条件は質問されたときに答える。</p>`},
+{c:"GL2025の扱い",s:"warn",src:"GL2025盛り込み案⑨",t:"⑨ 防護具着用時は疲れるので交代を早めに",k:"防護具 PPE 防護服 COVID 疲労 交代 1-2分",b:`<p>胸骨圧迫を1〜2分で交代することが大事という話の補足として、「防護服を着けた状態ではとても疲れるので、交代はますます大事」と伝える。導入講義で話す。BLSなどで話すかはインストラクターの判断でよい。</p>`},
+{c:"GL2025の扱い",s:"ok",src:"GL2025盛り込み案⑩",t:"⑩ ヘッドアップCPR・機械的胸骨圧迫装置・外科的気道確保は扱わない",k:"ヘッドアップ 機械的胸骨圧迫 LUCAS 外科的気道確保 輪状甲状靭帯切開",b:`<p>不要とします。</p>`},
+
+/* ---------- 決定事項 ---------- */
+{c:"決定事項",s:"ok",src:"10/18 決定",t:"第9回を通して伝える4つのメッセージ",k:"メッセージ 4つ 脈 胸骨圧迫 中断 声",b:`<ol><li><b>とりあえず脈みよか</b></li><li><b>悩んだら胸骨圧迫開始</b></li><li><b>胸骨圧迫が中断する時間をできる限り短く</b></li><li><b>とにかく声を出す、大きな声で</b></li></ol><p>導入講義の冒頭と最後で伝えます。各ブースでもこの言葉に結びつけてください。</p>`},
+{c:"決定事項",s:"ok",src:"10/11 武部先生",t:"GL2020とGL2025の扱い（基本方針）",k:"GL2020 GL2025 準拠 ガイドライン 版 混在 武部先生",b:`<ul><li>本コースは<b>JRC蘇生ガイドライン2020とガイドブック第5版に準拠</b>。実技・シナリオ・評価はこれを基本にする。</li><li>GL2025を意識した内容でよく、院内コースとして西陣病院の実情を考慮してよい。</li><li>守るべきことは、<b>インストラクターによってGL2020とGL2025が混在しないこと</b>。GL2025の内容を答えるときは「本コースはGL2020に沿っています。GL2025では〜」と版を明示する。</li></ul>`},
+{c:"決定事項",s:"ok",src:"10/19 決定",t:"ROSC後はどこまで扱うか",k:"ROSC後 心拍再開 12誘導 カテ 挿管 バイタル 体温管理",b:`<p>扱うのは<b>バイタル測定、12誘導心電図、ST変化があれば緊急カテ、呼吸状態の評価と不安定なら挿管</b>の次元まで。体温管理は講義でも触れず、質問時の統一回答も用意しません。</p>`},
+{c:"決定事項",s:"ok",src:"10/19 決定",t:"貼付剤（貼り薬・湿布）とブラジャー",k:"貼付剤 貼り薬 湿布 テープ ニトロ パッド 熱傷 ブラジャー ブラ BLS",b:`<p>パッドの位置にある貼り薬・湿布薬は、<b>通電の妨げや熱傷の原因になり得るので除去してから貼る</b>。BLSでブラジャーの話と一緒に説明します。シナリオに貼付剤の設定が出ることもあります。</p>`},
+{c:"決定事項",s:"ok",src:"10月 コアメンバー",t:"デモンストレーションは5分×2回",k:"デモ デモンストレーション お手本 アイスブレイク",b:`<ul><li>デモ①（9:00〜）：冒頭のアイスブレイク。</li><li>デモ②（昼食後・ALSの前後）：午後のチーム蘇生のお手本。DC2回でROSC。受講生にそのままインプットされるので<b>アルゴリズムに忠実に</b>行う。11/13のインストMTGで練習し、基本どおりに動けなければやらない。</li></ul><p>関連：ALS章「デモ②の標準の流れ」</p>`},
+
+/* ---------- 当日運営 ---------- */
+{c:"当日運営",s:"ok",src:"時間割 v5",t:"第9回の時間割",k:"時間割 時間 何時 スケジュール 休憩 昼食 開始 終了 集合 BLS 気道管理 電気ショック ALS シナリオ 振り返り 閉会",b:T(["時刻","受講生","インストラクター"],[["8:15–8:30","","気道管理インスト：挿管手技の練習"],["8:20–8:30","","インスト・タスク受付"],["8:30–8:45","受講生受付（8:35〜）","打ち合わせ・準備（時計合わせ、物品点検）"],["8:45–9:00","オリエンテーション・導入講義","各ブース準備"],["9:00–9:05","デモ①","デモ①"],["9:05–9:55","BLS（4チーム）","BLS（1人担当制）"],["9:55–10:05","休憩（再開 10:05）",""],["10:05–10:55","1G 気道管理／2G 電気ショック",""],["10:55–11:05","休憩（再開 11:05）",""],["11:05–11:55","1G 電気ショック／2G 気道管理",""],["11:55–12:50","昼食","ブース長の午前振り返り 12:15–12:45"],["12:50–12:55","デモ②",""],["12:55–14:05","ALS（70分）",""],["14:05–14:15","休憩（再開 14:15）",""],["14:15–14:55","シナリオ1・2",""],["14:55–15:05","休憩（再開 15:05）",""],["15:05–15:45","シナリオ3・4",""],["15:45–15:55","休憩（再開 15:55）",""],["15:55–16:30","シナリオ5・6",""],["16:30–16:50","全体振り返り",""],["16:50–17:00","閉会式","片付け"],["17:00–17:15","解散","インスト・タスク振り返り"]]).replace(/<td>(\d{1,2}:\d{2}[^<]*)<\/td>/g,'<td class="n">$1</td>')+`<p>押したときは全体振り返りから借ります。</p>`},
+{c:"当日運営",s:"ok",src:"西陣病院 病棟掲示",t:"西陣病院のコードブルー（909）",k:"コードブルー 909 応援 夜間 当直 連絡 マックグラス 6時 22時",b:`<ul><li>コードブルーは<b>「909」、6:00〜22:00</b>。</li><li>それ以外の時間の急変時は、①当直医（内科・外科）両方 → ②看護管理当直 → ③放射線科当直 の順に連絡（④家族・⑤主治医は状況に応じて）。</li><li>マックグラス（ビデオ喉頭鏡）は、本館なら本3、西館なら西3が持って走る。</li></ul><p>シナリオの時刻設定によって応援の呼び方が変わります。</p>`}
+];
+
+/* 同じものを指す言葉のまとまり。どれか1つで検索すると、全部で探す */
+const SYN=[
+ ["中断","10秒","十秒","hands-off","ハンズオフ"],
+ ["ブラジャー","ブラ","乳房","下着","女性"],
+ ["パッド","電極","貼る位置","パット"],
+ ["貼付剤","貼り薬","湿布","シップ","テープ剤","ニトロ"],
+ ["アドレナリン","エピネフリン","ボスミン","adrenaline","エピ"],
+ ["アミオダロン","アンカロン","抗不整脈薬"],
+ ["電気ショック","DC","除細動","ショック","カウンターショック","除細動器"],
+ ["AED","AEDモード"],
+ ["ROSC","心拍再開","自己心拍"],
+ ["PEA","無脈性電気活動"],
+ ["心静止","asystole","アシストール","エイシストール","フラット"],
+ ["VF","心室細動","無脈性VT","pVT","VT"],
+ ["挿管","気管挿管","高度な気道確保","マックグラス","喉頭鏡"],
+ ["BVM","バッグバルブマスク","アンビュー","人工呼吸","換気"],
+ ["背板","バックボード","CPRボード","背板"],
+ ["記録","ホワイトボード","タイムキーパー","記録係"],
+ ["原因検索","4H4T","原因"],
+ ["エコー","POCUS","超音波"],
+ ["リーダー","指示","復唱","クローズドループ","SBAR","要約"],
+ ["コードブルー","909","応援","夜間","当直"],
+ ["体温管理","TTM","低体温","鎮静","鎮痛"],
+ ["DSED","VC","ベクトルチェンジ","二重連続"],
+ ["時間割","スケジュール","タイムテーブル","何時","休憩","昼食"],
+ ["デモ","デモンストレーション","お手本"],
+ ["防護具","PPE","防護服","疲労","交代"],
+ ["ECPR","ECMO","PCPS","体外循環"],
+ ["カルシウム","メイロン","重炭酸","炭酸水素ナトリウム"],
+ ["徐脈","頻拍","頻脈"],
+ ["GL2025","2025","新ガイドライン","ガイドライン2025"],
+ ["統一回答","質問","Q&A","QA"],
+ ["振り返り","フィードバック","デブリーフィング"],
+ ["胸骨圧迫","心臓マッサージ","CPR","圧迫"]
+];
+const QUICK=["中断","ブラジャー","パッド","アドレナリン","アミオダロン","電気ショック","背板","挿管","記録","4H4T","ROSC","統一回答","コードブルー","時間割","デモ"];
+
+/* 正規化：全角半角・大小文字・ひらがな/カタカナの違いを吸収 */
+const norm=s=>s.normalize("NFKC").toLowerCase().replace(/[ぁ-ゖ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)+0x60));
+const strip=h=>h.replace(/<[^>]+>/g," ");
+DATA.forEach((d,i)=>{d.i=i;d.nt=norm(d.t);d.nk=norm(d.k+" "+d.src);d.nb=norm(strip(d.b));});
+const NSYN=SYN.map(g=>g.map(norm));
+
+function expand(term){
+  const n=norm(term); const out=new Set([n]);
+  NSYN.forEach(g=>{ if(g.some(w=>w===n||(n.length>=2&&w.includes(n))||(w.length>=2&&n.includes(w)))) g.forEach(w=>out.add(w)); });
+  return [...out].filter(w=>w.length>0);
+}
+function search(q,cat){
+  const terms=q.trim().split(/[\s　]+/).filter(Boolean);
+  const pool=DATA.filter(d=>!cat||d.c===cat);
+  if(!terms.length) return {res:pool,words:[]};
+  const groups=terms.map(expand); const words=groups.flat();
+  const res=[];
+  pool.forEach(d=>{
+    let score=0;
+    for(const g of groups){
+      let s=0;
+      for(const w of g){ if(d.nt.includes(w)) s=Math.max(s,6); else if(d.nk.includes(w)) s=Math.max(s,3); else if(d.nb.includes(w)) s=Math.max(s,1); }
+      if(!s) return; score+=s;
+    }
+    res.push({d,score});
+  });
+  res.sort((a,b)=>b.score-a.score||a.d.i-b.d.i);
+  return {res:res.map(r=>r.d),words};
+}
+
+const $=id=>document.getElementById(id);
+const qEl=$("q"), listEl=$("list"), countEl=$("count");
+let cat="";
+
+function card(d,open){
+  const [cls,label]=ST[d.s];
+  return `<details class="card"${open?" open":""}><summary><div class="meta"><span class="cat">${d.c}</span><span class="pill ${cls}">${label}</span><span class="src">${d.src}</span></div><div class="title">${d.t}</div></summary><div class="body">${d.b}</div></details>`;
+}
+function highlight(root,words){
+  const ws=[...new Set(words)].filter(w=>w.length>=1).sort((a,b)=>b.length-a.length);
+  if(!ws.length) return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+  const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node=>{
+    const text=node.nodeValue; const nt=norm(text);
+    const hits=[];
+    ws.forEach(w=>{let p=nt.indexOf(w);while(p>-1){hits.push([p,p+w.length]);p=nt.indexOf(w,p+w.length);}});
+    if(!hits.length) return;
+    hits.sort((a,b)=>a[0]-b[0]);
+    const merged=[]; hits.forEach(h=>{const l=merged[merged.length-1]; if(l&&h[0]<=l[1]) l[1]=Math.max(l[1],h[1]); else merged.push([...h]);});
+    const frag=document.createDocumentFragment(); let last=0;
+    merged.forEach(([a,b])=>{ if(a>last) frag.append(text.slice(last,a)); const m=document.createElement("mark"); m.textContent=text.slice(a,b); frag.append(m); last=b; });
+    if(last<text.length) frag.append(text.slice(last));
+    node.replaceWith(frag);
+  });
+}
+function render(){
+  const q=qEl.value;
+  const {res,words}=search(q,cat);
+  if(q.trim()){
+    countEl.innerHTML=`「${q.trim().replace(/[<>&]/g,"")}」に関係するもの <b>${res.length}</b> 件`+(words.length>1?`<div class="related">いっしょに探した言葉：${[...new Set(words)].slice(0,12).join("、")}</div>`:"");
+    listEl.innerHTML=res.length?res.map((d,i)=>card(d,i<4)).join(""):`<div class="empty">見つかりませんでした。別の言い方（例：「DC」→「電気ショック」）か、短い言葉で試してください。</div>`;
+    highlight(listEl,words);
+  }else{
+    countEl.innerHTML=`全 <b>${res.length}</b> 件。項目を押すと内容が開きます。`;
+    let html="",prev="";
+    res.forEach(d=>{ if(!cat&&d.c!==prev){html+=`<div class="group-h">${d.c}</div>`;prev=d.c;} html+=card(d,false); });
+    listEl.innerHTML=html;
+  }
+  [...document.querySelectorAll("#quick .chip")].forEach(b=>b.classList.toggle("on",norm(b.dataset.w)===norm(q.trim())));
+}
+
+$("quick").innerHTML=QUICK.map(w=>`<button class="chip" type="button" data-w="${w}">${w}</button>`).join("");
+$("cats").innerHTML=[["","すべて"],...CATS.map(c=>[c,c])].map(([v,l])=>`<button class="chip${v===""?" on":""}" type="button" data-c="${v}">${l}</button>`).join("");
+$("quick").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;qEl.value=b.dataset.w;render();window.scrollTo({top:0});});
+$("cats").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;[...$("cats").children].forEach(x=>x.classList.toggle("on",x===b));render();});
+let tm; qEl.addEventListener("input",()=>{clearTimeout(tm);tm=setTimeout(render,120);});
+qEl.addEventListener("keydown",e=>{if(e.key==="Enter"){qEl.blur();}});
+$("clear").addEventListener("click",()=>{qEl.value="";render();qEl.focus();});
+render();
+</script>
