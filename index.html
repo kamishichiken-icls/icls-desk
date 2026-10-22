@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
 <title>上七軒ICLS インストラクター共有デスク</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +28,7 @@
   --accent:#7fb0f5; --accent-soft:#1d2d45; --mark:#6b5a12;
   --ok:#6fd3a0; --ok-soft:#173326; --warn:#f0bf6a; --warn-soft:#3a2c12; --draft:#c3a8f0; --draft-soft:#2c2340; color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.75}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
 .wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -75,26 +82,83 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .empty{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14px}
 .related{font-size:12.5px;color:var(--muted);margin-top:4px}
 footer{color:var(--muted);font-size:12px;padding-block:8px 24px}
+.me{font:inherit;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent);cursor:pointer}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--bg);border-radius:10px;padding:3px}
+.tabs button{font:inherit;font-size:14px;font-weight:700;padding:6px;border:0;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+#searchCtl{display:grid;gap:8px}
+.view{display:grid;gap:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;min-width:0}
+.panel h2{font-family:var(--font-display);font-size:13px;color:var(--muted);letter-spacing:.08em;margin:0;font-weight:700}
+.now{border:2px solid var(--accent)}
+.big{font-family:var(--font-display);font-size:20px;font-weight:700;line-height:1.4}
+.where{font-size:15px}
+.where b{color:var(--accent)}
+.clock{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:999px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bar.late i{background:var(--warn)}
+.remain{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.remain b{font-family:var(--font-mono);font-size:18px;color:var(--ink)}
+.sim{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.sim input{font:inherit;font-family:var(--font-mono);padding:3px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.day{list-style:none;margin:0;padding:0;display:grid}
+.day li{display:grid;grid-template-columns:5.6em 1fr;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:13.5px}
+.day li:first-child{border-top:0}
+.day .t{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted);font-size:12.5px}
+.day li.past{opacity:.5}
+.day li.cur{background:var(--accent-soft);border-radius:6px;padding-inline:6px;margin-inline:-6px}
+.day .r{color:var(--muted)}
+.tbl tr.mine td{background:var(--accent-soft);font-weight:700}
+.code{font-family:var(--font-mono);font-weight:700}
+.example{font-size:12.5px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:6px 10px}
+#picker{position:fixed;inset:0;z-index:20;background:rgba(10,15,25,.55);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+#picker[hidden]{display:none}
+.pick{background:var(--surface);border-radius:14px;padding:18px;max-width:420px;width:100%;display:grid;gap:12px;max-height:100%;overflow:auto}
+.pick h2{font-family:var(--font-display);font-size:18px;margin:0}
+.pick p{margin:0;font-size:13.5px;color:var(--muted)}
+.codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.codes button{font:inherit;font-family:var(--font-mono);font-size:17px;font-weight:700;padding:12px 0;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.codes button:hover,.codes button:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.linkbtn{font:inherit;font-size:13px;background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;justify-self:start;padding:0}
 @media (prefers-reduced-motion:no-preference){details.card[open]>.body{animation:in .15s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
 </style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
 
 <header class="top">
   <div class="wrap">
-    <div class="brand"><h1>上七軒ICLS インストラクター共有デスク</h1><small>第9回 2026/11/15（日）西陣病院</small></div>
-    <div class="search">
-      <input id="q" type="search" placeholder="キーワード（例：中断、ブラ、アドレナリン）" autocomplete="off" enterkeyhint="search" aria-label="キーワード検索">
-      <button id="clear" type="button">消す</button>
+    <div class="brand"><h1>上七軒ICLS インストラクター共有デスク</h1><button id="meBtn" class="me" type="button">記号を選ぶ</button></div>
+    <nav class="tabs" aria-label="画面の切り替え"><button id="tabMe" type="button" data-v="me">わたしの予定</button><button id="tabSearch" type="button" data-v="search">検索</button></nav>
+    <div id="searchCtl" hidden>
+      <div class="search">
+        <input id="q" type="search" placeholder="キーワード（例：中断、ブラ、アドレナリン）" autocomplete="off" enterkeyhint="search" aria-label="キーワード検索">
+        <button id="clear" type="button">消す</button>
+      </div>
+      <div class="chips" id="quick" aria-label="よく調べる言葉"></div>
+      <div class="chips cats" id="cats" aria-label="分類で絞る"></div>
     </div>
-    <div class="chips" id="quick" aria-label="よく調べる言葉"></div>
-    <div class="chips cats" id="cats" aria-label="分類で絞る"></div>
   </div>
 </header>
 
+<div id="picker" hidden role="dialog" aria-modal="true" aria-labelledby="pickH">
+  <div class="pick">
+    <h2 id="pickH">あなたの記号を選んでください</h2>
+    <p>インストラクターMTGで配った対応表の記号です。一度選ぶと、このスマホでは次から自動でその記号の画面が開きます（あとで右上から変更できます）。</p>
+    <div class="codes" id="codes"></div>
+    <button class="linkbtn" id="skipPick" type="button">選ばずに検索だけ使う</button>
+  </div>
+</div>
+
 <main class="wrap" id="main">
+  <section class="view" id="viewMe" hidden></section>
+  <section class="view" id="viewSearch" hidden>
   <div class="notice"><b>試作版です。</b>コンセンサスはALS章（起案中）だけを載せています。印の意味：<span class="pill ok">決定</span> 決まったこと／<span class="pill warn">仮</span> コアメンバーの意見待ち／<span class="pill draft">起案中</span> コンセンサス作成中。本コースは JRC蘇生ガイドライン2020 とガイドブック第5版に準拠します。</div>
   <div class="count" id="count"></div>
   <div id="list" style="display:grid;gap:10px"></div>
   <footer>出典の表記：〔GB p.○〕＝改訂第5版 日本救急医学会ICLSコースガイドブック、〔2025 p.○〕＝JRC蘇生ガイドライン2025。GL2025 の内容を受講生に答えるときは「本コースはGL2020に沿っています。GL2025では〜」と版を明示してください。</footer>
+  </section>
 </main>
 
 <script>
@@ -281,4 +345,139 @@ let tm; qEl.addEventListener("input",()=>{clearTimeout(tm);tm=setTimeout(render,
 qEl.addEventListener("keydown",e=>{if(e.key==="Enter"){qEl.blur();}});
 $("clear").addEventListener("click",()=>{qEl.value="";render();qEl.focus();});
 render();
+
+/* ====================== わたしの予定 ======================
+   ※ 以下の割り振りは架空の例。割り振り表ができたら INSTRUCTORS と roleOf / SCENARIO を差し替える。
+   公開ページなので名前は書かない（記号のみ）。 */
+const EXAMPLE=true;
+const COURSE_DATE="2026-11-15";
+const INSTRUCTORS=Array.from({length:12},(_,i)=>"I"+(i+1));
+const SLOTS=[
+ ["8:15","8:30","挿管練習（気道管理インスト）","pre"],
+ ["8:20","8:30","インスト・タスク受付","all"],
+ ["8:30","8:45","打ち合わせ・準備（時計合わせ、物品点検）","all"],
+ ["8:45","9:00","オリエンテーション・導入講義","lec"],
+ ["9:00","9:05","デモ①","demo1"],
+ ["9:05","9:55","BLS","bls"],
+ ["9:55","10:05","休憩","brk"],
+ ["10:05","10:55","スキル（前半）","sk1"],
+ ["10:55","11:05","休憩","brk"],
+ ["11:05","11:55","スキル（後半）","sk2"],
+ ["11:55","12:50","昼食","lunch"],
+ ["12:50","12:55","デモ②","demo2"],
+ ["12:55","14:05","ALS","als"],
+ ["14:05","14:15","休憩","brk"],
+ ["14:15","14:55","シナリオ1・2","sc",[1,2]],
+ ["14:55","15:05","休憩","brk"],
+ ["15:05","15:45","シナリオ3・4","sc",[3,4]],
+ ["15:45","15:55","休憩","brk"],
+ ["15:55","16:30","シナリオ5・6","sc",[5,6]],
+ ["16:30","16:50","全体振り返り","all"],
+ ["16:50","17:00","閉会式・片付け","all"],
+ ["17:00","17:15","インスト・タスク振り返り","all"]
+].map(([s,e,label,kind,sc])=>({s,e,label,kind,sc,sm:toMin(s),em:toMin(e)}));
+function toMin(t){const [h,m]=t.split(":").map(Number);return h*60+m;}
+function fmt(m){return Math.floor(m/60)+":"+String(m%60).padStart(2,"0");}
+
+const STUDENT_ROLES=["リーダー","胸骨圧迫","気道管理","記録","除細動器","補助"];
+const SC_INST_ROLES=["進行役","記録係","シミュレーター操作","進行補助","時間・物品","患者・家族役"];
+const LET="ABCDEF";
+const numOf=c=>Number(c.slice(1));
+const grpOf=c=>numOf(c)<=6?"1G":"2G";
+const kOf=c=>(numOf(c)-1)%6;
+
+/* 例：I1〜I6＝気道管理ブース・1G側、I7〜I12＝電気ショックブース・2G側 */
+function roleOf(code,slot){
+  const n=numOf(code),k=kOf(code),g=grpOf(code);
+  const air=n<=6;
+  switch(slot.kind){
+    case "pre": return air?{place:"気道管理ブース",role:"挿管手技の練習"}:null;
+    case "lec": return {place:air?"気道管理ブース":"電気ショックブース",role:"ブースの準備"};
+    case "demo1": return [1,2,3,4].includes(n)?{place:"講義室",role:"デモ①に出演"}:{place:"講義室",role:"見学（各ブースは準備完了で待機）"};
+    case "bls": return n<=4?{place:"BLS",role:`チーム${n} の担当（1人担当制）`}:{place:"BLS",role:`チーム${((n-5)%4)+1} の補助`};
+    case "sk1": case "sk2": {
+      const first=slot.kind==="sk1";
+      const stu=air?(first?"1G":"2G"):(first?"2G":"1G");
+      const r=["メイン","サブ","手技確認","手技確認","記録・時間","物品"][k];
+      return {place:(air?"気道管理ブース":"電気ショックブース")+`（受講生 ${stu}）`,role:r};
+    }
+    case "demo2": return [7,8,9,10].includes(n)?{place:"講義室",role:"デモ②に出演"}:{place:"講義室",role:"見学"};
+    case "als": return {place:`ALS ${g}ブース`,role:["進行役（メイン）","進行役（サブ）","手技確認","記録指導","オペレーター","補助"][k]};
+    case "sc": return {place:`シナリオ ${g}`,role:slot.sc.map(s=>`シナリオ${s}：${SC_INST_ROLES[(k+s-1)%6]}`).join("／")};
+    case "brk": return {place:"",role:`休憩（再開 ${slot.e}）`};
+    case "lunch": return {place:"",role:"昼食"};
+    default: return {place:"全体",role:""};
+  }
+}
+function scenarioTable(g,s,me){
+  const stu=STUDENT_ROLES.map((r,i)=>[r,`${g}-${LET[(i+s-1)%6]}`]);
+  const ins=INSTRUCTORS.filter(c=>grpOf(c)===g).map(c=>[SC_INST_ROLES[(kOf(c)+s-1)%6],c]);
+  const row=(r,c,mine)=>`<tr${mine?' class="mine"':''}><td>${r}</td><td class="code">${c}</td></tr>`;
+  return `<div class="tbl"><table><thead><tr><th colspan="2">シナリオ${s}（${g}）受講生</th></tr></thead><tbody>${stu.map(([r,c])=>row(r,c,false)).join("")}</tbody></table></div>`+
+         `<div class="tbl"><table><thead><tr><th colspan="2">シナリオ${s}（${g}）インストラクター</th></tr></thead><tbody>${ins.sort((a,b)=>SC_INST_ROLES.indexOf(a[0])-SC_INST_ROLES.indexOf(b[0])).map(([r,c])=>row(r,c,c===me)).join("")}</tbody></table></div>`;
+}
+
+const KEY="icls9-me";
+const store={get(){try{return localStorage.getItem(KEY)}catch(e){return null}},set(v){try{v?localStorage.setItem(KEY,v):localStorage.removeItem(KEY)}catch(e){}}};
+let me=store.get(); if(me&&!INSTRUCTORS.includes(me)) me=null;
+let simMin=toMin("14:20");
+
+function nowMin(){
+  const d=new Date();
+  const today=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  return today===COURSE_DATE?{m:d.getHours()*60+d.getMinutes()+d.getSeconds()/60,live:true}:{m:simMin,live:false};
+}
+function renderMe(){
+  const v=$("viewMe");
+  if(!me){v.innerHTML=`<div class="panel"><div>記号がまだ選ばれていません。</div><button class="me" type="button" id="pickNow">記号を選ぶ</button></div>`;$("pickNow").onclick=openPicker;return;}
+  const {m,live}=nowMin();
+  const mine=SLOTS.map(s=>({s,r:roleOf(me,s)})).filter(x=>x.r);
+  const cur=mine.find(x=>m>=x.s.sm&&m<x.s.em);
+  const next=mine.find(x=>x.s.sm>=(cur?cur.s.em:m)) ;
+  let html="";
+  if(EXAMPLE) html+=`<div class="example">表示しているのは<b>架空の例</b>の割り振りです。割り振り表ができたら差し替えます。</div>`;
+  if(!live) html+=`<div class="sim"><span>当日ではないため、時刻を仮に</span><input id="simT" type="time" value="${fmt(Math.floor(simMin)).padStart(5,"0")}" step="60" aria-label="仮の時刻"><span>として表示しています。</span></div>`;
+  const where=r=>`${r.place?`<b>${r.place}</b>　`:""}${r.role}`;
+  if(cur){
+    const tot=cur.s.em-cur.s.sm, el=Math.max(0,m-cur.s.sm), rem=Math.max(0,Math.ceil(cur.s.em-m));
+    html+=`<div class="panel now"><h2>いま　<span class="clock">${cur.s.s}–${cur.s.e}</span></h2><div class="big">${cur.s.label}</div><div class="where">${where(cur.r)}</div>
+      <div class="bar${rem<=5?" late":""}"><i style="width:${Math.min(100,el/tot*100).toFixed(1)}%"></i></div>
+      <div class="remain"><span>${tot}分のうち ${Math.floor(el)}分経過</span><span>残り <b>${rem}</b> 分（${cur.s.e} 終了）</span></div></div>`;
+  }else{
+    html+=`<div class="panel now"><h2>いま</h2><div class="where">${m<SLOTS[0].sm?"コース開始前です。":m>=SLOTS[SLOTS.length-1].em?"本日の予定は終わりました。おつかれさまでした。":"担当の予定はありません。"}</div></div>`;
+  }
+  if(next) html+=`<div class="panel"><h2>つぎ　<span class="clock">${next.s.s}–${next.s.e}</span></h2><div class="big" style="font-size:17px">${next.s.label}</div><div class="where">${where(next.r)}</div></div>`;
+  const scSlot=[cur,next].find(x=>x&&x.s.kind==="sc");
+  if(scSlot){
+    const g=grpOf(me);
+    html+=`<div class="panel"><h2>シナリオの役割（${g}）　受講生は名札の記号で呼びかけてください</h2>${scSlot.s.sc.map(s=>scenarioTable(g,s,me)).join("")}</div>`;
+  }
+  html+=`<div class="panel"><h2>${me} の1日</h2><ul class="day">${mine.map(x=>`<li class="${x===cur?"cur":(x.s.em<=m?"past":"")}"><span class="t">${x.s.s}–${x.s.e}</span><span>${x.s.label}${x.r.role||x.r.place?`<br><span class="r">${[x.r.place,x.r.role].filter(Boolean).join("　")}</span>`:""}</span></li>`).join("")}</ul></div>`;
+  html+=`<div class="panel"><h2>ほかのシナリオの役割を見る</h2><div class="chips" id="scPick">${[1,2,3,4,5,6].map(s=>`<button class="chip" type="button" data-s="${s}">シナリオ${s}</button>`).join("")}</div><div id="scView"></div></div>`;
+  v.innerHTML=html;
+  const st=$("simT"); if(st) st.addEventListener("change",()=>{if(st.value){simMin=toMin(st.value);renderMe();}});
+  $("scPick").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;[...$("scPick").children].forEach(x=>x.classList.toggle("on",x===b));$("scView").innerHTML=scenarioTable(grpOf(me),Number(b.dataset.s),me);});
+}
+function updateMeBtn(){$("meBtn").textContent=me?`${me}（切り替え）`:"記号を選ぶ";}
+function openPicker(){$("picker").hidden=false;}
+$("codes").innerHTML=INSTRUCTORS.map(c=>`<button type="button" data-c="${c}">${c}</button>`).join("");
+$("codes").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;me=b.dataset.c;store.set(me);$("picker").hidden=true;updateMeBtn();show("me");});
+$("skipPick").addEventListener("click",()=>{$("picker").hidden=true;show("search");});
+$("meBtn").addEventListener("click",openPicker);
+
+let view="me";
+function show(vw){
+  view=vw;
+  $("viewMe").hidden=vw!=="me"; $("viewSearch").hidden=vw!=="search"; $("searchCtl").hidden=vw!=="search";
+  $("tabMe").classList.toggle("on",vw==="me"); $("tabSearch").classList.toggle("on",vw==="search");
+  if(vw==="me") renderMe();
+}
+$("tabMe").addEventListener("click",()=>show("me"));
+$("tabSearch").addEventListener("click",()=>show("search"));
+setInterval(()=>{if(view==="me"&&nowMin().live) renderMe();},20000);
+updateMeBtn();
+if(me) show("me"); else {show("search"); openPicker();}
 </script>
+
+</body>
+</html>
